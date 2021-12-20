@@ -4,13 +4,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Getter @Setter @NoArgsConstructor
+@Entity
+@Table
 public class Student {
 
-    private UUID id = UUID.randomUUID();
+    @Id
+    @SequenceGenerator(name = "student_sequence", sequenceName = "student_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_sequence")
+    private Integer id;
     private String firstname;
     private String lastname;
     private String username;
@@ -18,7 +23,7 @@ public class Student {
     private String password;
     private LocalDate dob;
 
-    public Student(UUID id, String firstname, String lastname, String username, String email, String password, LocalDate dob) {
+    public Student(Integer id, String firstname, String lastname, String username, String email, String password, LocalDate dob) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
